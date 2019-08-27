@@ -1,0 +1,12 @@
+spring:
+  datasource:
+    url: 'jdbc:postgresql://freelancer-postgresql:5432/freelancerdb'
+    username: freelancer_service
+    password: P@sssW0rdZZ
+  jpa:
+    show-sql: true
+    properties:
+      hibernate:
+        temp:
+          use_jdbc_metadata_defaults: false
+        dialect: org.hibernate.dialect.PostgreSQLDialect

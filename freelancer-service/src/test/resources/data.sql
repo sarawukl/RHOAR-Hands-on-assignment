@@ -1,0 +1,1 @@
+insert into freelancer values (1234,'testname','testlastname','testemail','Java, Thorntail, Vert.x, Spring Boot, JPA');
