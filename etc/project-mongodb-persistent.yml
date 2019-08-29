@@ -1,0 +1,268 @@
+apiVersion: v1
+kind: Template
+labels:
+  app: project-service
+metadata:
+  annotations:
+    description: Project service persistent template for MongoDB
+  name: projectservice-mongodb
+objects:
+# Project Service
+- apiVersion: v1
+  kind: Service
+  metadata:
+    labels:
+      app: project-service
+    name: project-mongodb
+  spec:
+    ports:
+    - name: mongo
+      port: 27017
+      protocol: TCP
+      targetPort: 27017
+    selector:
+      deploymentconfig: project-mongodb
+    sessionAffinity: None
+    type: ClusterIP
+- apiVersion: v1
+  kind: DeploymentConfig
+  metadata:
+    labels:
+      app: project-service
+    name: project-mongodb
+  spec:
+    replicas: 1
+    selector:
+      deploymentconfig: project-mongodb
+    strategy:
+      recreateParams:
+        post:
+          execNewPod:
+            command:
+              - /bin/sh
+              - -i
+              - -c
+              - sleep 10 && /opt/rh/rh-mongodb32/root/usr/bin/mongo $PROJECT_MONGODB_SERVICE_HOST:27017/$MONGODB_DATABASE -u $MONGODB_USER -p $MONGODB_PASSWORD
+                --eval="$MONGODB_INIT"
+            containerName: project-mongodb
+            env:
+            - name: MONGODB_INIT
+              value:  >-
+                db.projects.insert({"_id":"1","projectId":"1","ownerFirstName":"Riobard","ownerLastName":"Hollier","ownerEmail":"rhollier0@nytimes.com","title":"Subin","description":"Displaced
+                intertrochanteric fracture of left femur, subsequent encounter
+                for open fracture type I or II with delayed
+                healing","status":"in_progress"});
+                db.projects.insert({"_id":"2","projectId":"2","ownerFirstName":"Kurtis","ownerLastName":"Birtonshaw","ownerEmail":"kbirtonshaw1@smugmug.com","title":"Otcom","description":"Adverse
+                effect of unspecified primarily systemic and hematological
+                agent, sequela","status":"in_progress"});
+                db.projects.insert({"_id":"3","projectId":"3","ownerFirstName":"Randene","ownerLastName":"Smallridge","ownerEmail":"rsmallridge2@unicef.org","title":"Solarbreeze","description":"Machinery
+                accident on board fishing boat","status":"cancelled"});
+                db.projects.insert({"_id":"4","projectId":"4","ownerFirstName":"Mortie","ownerLastName":"Marval","ownerEmail":"mmarval3@ask.com","title":"Zamit","description":"Laceration of left quadriceps muscle, fascia and tendon, sequela","status":"cancelled"});
+                db.projects.insert({"_id":"5","projectId":"5","ownerFirstName":"Julio","ownerLastName":"Elliman","ownerEmail":"jelliman4@ihg.com","title":"Biodex","description":"Burn of third degree of multiple fingers (nail), including thumb","status":"completed"});
+                db.projects.insert({"_id":"6","projectId":"6","ownerFirstName":"Elianora","ownerLastName":"Limmer","ownerEmail":"elimmer5@salon.com","title":"Stronghold","description":"Unspecified traumatic cataract, left eye","status":"completed"});
+                db.projects.insert({"_id":"7","projectId":"7","ownerFirstName":"Lillian","ownerLastName":"Tingcomb","ownerEmail":"ltingcomb6@cargocollective.com","title":"Cardify","description":"Exudative age-related macular degeneration, bilateral, with active choroidal neovascularization","status":"completed"});
+                db.projects.insert({"_id":"8","projectId":"8","ownerFirstName":"Clareta","ownerLastName":"Boeck","ownerEmail":"cboeck7@walmart.com","title":"Y-Solowarm","description":"Poisoning by antitussives, undetermined, subsequent encounter","status":"completed"});
+                db.projects.insert({"_id":"9","projectId":"9","ownerFirstName":"Bronnie","ownerLastName":"McPhelim","ownerEmail":"bmcphelim8@nps.gov","title":"Tampflex","description":"Displaced fracture of medial condyle of unspecified tibia, subsequent encounter for open fracture type IIIA, IIIB, or IIIC with nonunion","status":"open"});
+                db.projects.insert({"_id":"10","projectId":"10","ownerFirstName":"Rollin","ownerLastName":"Addlestone","ownerEmail":"raddlestone9@clickbank.net","title":"Tres-Zap","description":"Dislocation of tarsal joint of right foot, sequela","status":"open"});
+                db.projects.insert({"_id":"11","projectId":"11","ownerFirstName":"Kile","ownerLastName":"Nellis","ownerEmail":"knellisa@odnoklassniki.ru","title":"Toughjoyfax","description":"Non-pressure chronic ulcer of right ankle limited to breakdown of skin","status":"cancelled"});
+                db.projects.insert({"_id":"12","projectId":"12","ownerFirstName":"Shantee","ownerLastName":"Amiable","ownerEmail":"samiableb@wordpress.com","title":"Fix San","description":"Superficial frostbite","status":"cancelled"});
+                db.projects.insert({"_id":"13","projectId":"13","ownerFirstName":"Briney","ownerLastName":"Guerre","ownerEmail":"bguerrec@nasa.gov","title":"Duobam","description":"Burn of first degree of single left finger (nail) except thumb, sequela","status":"completed"});
+                db.projects.insert({"_id":"14","projectId":"14","ownerFirstName":"Raymond","ownerLastName":"Lohan","ownerEmail":"rlohand@xing.com","title":"Vagram","description":"Episcleritis periodica fugax","status":"open"});
+                db.projects.insert({"_id":"15","projectId":"15","ownerFirstName":"Bell","ownerLastName":"Cripps","ownerEmail":"bcrippse@stumbleupon.com","title":"Fintone","description":"Felty's syndrome, hip","status":"cancelled"});
+                db.projects.insert({"_id":"16","projectId":"16","ownerFirstName":"Benny","ownerLastName":"Brockie","ownerEmail":"bbrockief@smh.com.au","title":"Job","description":"Balloon fire injuring occupant, initial encounter","status":"cancelled"});
+                db.projects.insert({"_id":"17","projectId":"17","ownerFirstName":"Gaby","ownerLastName":"Wildsmith","ownerEmail":"gwildsmithg@blogtalkradio.com","title":"Zathin","description":"Non-ABO incompatibility with delayed hemolytic transfusion reaction, subsequent encounter","status":"open"});
+                db.projects.insert({"_id":"18","projectId":"18","ownerFirstName":"Dion","ownerLastName":"Helm","ownerEmail":"dhelmh@weibo.com","title":"Opela","description":"Dacryolith of right lacrimal passage","status":"in_progress"});
+                db.projects.insert({"_id":"19","projectId":"19","ownerFirstName":"Kele","ownerLastName":"Extall","ownerEmail":"kextalli@elegantthemes.com","title":"Ventosanzap","description":"Other fracture of right foot","status":"completed"});
+                db.projects.insert({"_id":"20","projectId":"20","ownerFirstName":"Ashien","ownerLastName":"Schoales","ownerEmail":"aschoalesj@vistaprint.com","title":"Bigtax","description":"Crushing injury of shoulder and upper arm, unspecified arm, subsequent encounter","status":"completed"});
+                db.projects.insert({"_id":"21","projectId":"21","ownerFirstName":"Arnaldo","ownerLastName":"Towers","ownerEmail":"atowersk@stumbleupon.com","title":"Sonair","description":"Organic azoospermia","status":"open"});
+                db.projects.insert({"_id":"22","projectId":"22","ownerFirstName":"Flor","ownerLastName":"MacPadene","ownerEmail":"fmacpadenel@bbb.org","title":"Ronstring","description":"Recurrent acute iridocyclitis, unspecified eye","status":"in_progress"});
+                db.projects.insert({"_id":"23","projectId":"23","ownerFirstName":"Antonio","ownerLastName":"Bourgeois","ownerEmail":"abourgeoism@ehow.com","title":"Opela","description":"Unspecified injury of other specified blood vessels at shoulder and upper arm level, left arm, initial encounter","status":"completed"});
+                db.projects.insert({"_id":"24","projectId":"24","ownerFirstName":"Leopold","ownerLastName":"Hastler","ownerEmail":"lhastlern@state.gov","title":"Stronghold","description":"Nondisplaced fracture of olecranon process without intraarticular extension of left ulna, subsequent encounter for closed fracture with delayed healing","status":"completed"});
+                db.projects.insert({"_id":"25","projectId":"25","ownerFirstName":"Kathrine","ownerLastName":"Gostage","ownerEmail":"kgostageo@nih.gov","title":"Cookley","description":"Acute infarction of spinal cord (embolic) (nonembolic)","status":"completed"});
+                db.projects.insert({"_id":"26","projectId":"26","ownerFirstName":"Ingrim","ownerLastName":"Rolfi","ownerEmail":"irolfip@time.com","title":"Rank","description":"Spinal enthesopathy, cervicothoracic region","status":"completed"});
+                db.projects.insert({"_id":"27","projectId":"27","ownerFirstName":"Klement","ownerLastName":"Geard","ownerEmail":"kgeardq@vimeo.com","title":"Alpha","description":"Toxic effect of halogen derivatives of aliphatic and aromatic hydrocarbons","status":"completed"});
+                db.projects.insert({"_id":"28","projectId":"28","ownerFirstName":"Eduard","ownerLastName":"Masey","ownerEmail":"emaseyr@1und1.de","title":"Cookley","description":"Other specified sprain of unspecified wrist, sequela","status":"cancelled"});
+                db.projects.insert({"_id":"29","projectId":"29","ownerFirstName":"Gloriane","ownerLastName":"Donnett","ownerEmail":"gdonnetts@1und1.de","title":"Hatity","description":"Inhalant use, unspecified with inhalant-induced persisting dementia","status":"cancelled"});
+                db.projects.insert({"_id":"30","projectId":"30","ownerFirstName":"Shelli","ownerLastName":"Swindells","ownerEmail":"sswindellst@photobucket.com","title":"Aerified","description":"Unspecified intracranial injury with loss of consciousness of 31 minutes to 59 minutes, sequela","status":"in_progress"});
+                db.projects.insert({"_id":"31","projectId":"31","ownerFirstName":"Deeann","ownerLastName":"Grayham","ownerEmail":"dgrayhamu@about.com","title":"Sub-Ex","description":"Unspecified injury of flexor muscle, fascia and tendon of left little finger at forearm level","status":"cancelled"});
+                db.projects.insert({"_id":"32","projectId":"32","ownerFirstName":"Fanchette","ownerLastName":"Alessandone","ownerEmail":"falessandonev@psu.edu","title":"Job","description":"Laceration with foreign body, unspecified thigh, subsequent encounter","status":"open"});
+                db.projects.insert({"_id":"33","projectId":"33","ownerFirstName":"Jerrylee","ownerLastName":"Goshawke","ownerEmail":"jgoshawkew@4shared.com","title":"Flexidy","description":"Neoplasm of uncertain behavior of other specified sites of the oral cavity","status":"open"});
+                db.projects.insert({"_id":"34","projectId":"34","ownerFirstName":"Phyllida","ownerLastName":"Phipson","ownerEmail":"pphipsonx@shareasale.com","title":"Tampflex","description":"Displaced fracture of olecranon process without intraarticular extension of left ulna, subsequent encounter for open fracture type IIIA, IIIB, or IIIC with routine healing","status":"in_progress"});
+                db.projects.insert({"_id":"35","projectId":"35","ownerFirstName":"Regine","ownerLastName":"McGeachey","ownerEmail":"rmcgeacheyy@youku.com","title":"Tin","description":"Other specified injury of ulnar artery at forearm level, right arm","status":"cancelled"});
+                db.projects.insert({"_id":"36","projectId":"36","ownerFirstName":"Alon","ownerLastName":"Bushell","ownerEmail":"abushellz@taobao.com","title":"Overhold","description":"Anaphylactic reaction due to administration of blood and blood products, sequela","status":"cancelled"});
+                db.projects.insert({"_id":"37","projectId":"37","ownerFirstName":"Pamella","ownerLastName":"Petruszka","ownerEmail":"ppetruszka10@shareasale.com","title":"Aerified","description":"Corrosion of second degree of right elbow, sequela","status":"cancelled"});
+                db.projects.insert({"_id":"38","projectId":"38","ownerFirstName":"Alexander","ownerLastName":"Gittins","ownerEmail":"agittins11@sphinn.com","title":"Job","description":"Nondisplaced simple supracondylar fracture without intercondylar fracture of left humerus, sequela","status":"cancelled"});
+                db.projects.insert({"_id":"39","projectId":"39","ownerFirstName":"Alene","ownerLastName":"Cotta","ownerEmail":"acotta12@prnewswire.com","title":"Y-Solowarm","description":"Spinal osteochondrosis, unspecified","status":"cancelled"});
+                db.projects.insert({"_id":"40","projectId":"40","ownerFirstName":"Giacomo","ownerLastName":"Cawthorn","ownerEmail":"gcawthorn13@jimdo.com","title":"Lotstring","description":"Periodic headache syndromes in child or adult","status":"open"});
+                db.projects.insert({"_id":"41","projectId":"41","ownerFirstName":"Kari","ownerLastName":"Prujean","ownerEmail":"kprujean14@spotify.com","title":"Domainer","description":"Corrosion of second degree of unspecified upper arm","status":"cancelled"});
+                db.projects.insert({"_id":"42","projectId":"42","ownerFirstName":"Roscoe","ownerLastName":"Philpin","ownerEmail":"rphilpin15@wix.com","title":"Temp","description":"Other juvenile arthritis, hip","status":"cancelled"});
+                db.projects.insert({"_id":"43","projectId":"43","ownerFirstName":"Patrick","ownerLastName":"Griffoen","ownerEmail":"pgriffoen16@friendfeed.com","title":"Cardguard","description":"Retained (old) intraocular foreign body, magnetic, in other or multiple sites, unspecified eye","status":"cancelled"});
+                db.projects.insert({"_id":"44","projectId":"44","ownerFirstName":"Newton","ownerLastName":"De Atta","ownerEmail":"ndeatta17@geocities.jp","title":"Daltfresh","description":"Laceration of tail of pancreas, unspecified degree","status":"open"});
+                db.projects.insert({"_id":"45","projectId":"45","ownerFirstName":"Valaria","ownerLastName":"Van de Velde","ownerEmail":"vvandevelde18@simplemachines.org","title":"Tampflex","description":"Unspecified superficial injury of scalp","status":"cancelled"});
+                db.projects.insert({"_id":"46","projectId":"46","ownerFirstName":"Erin","ownerLastName":"Stobart","ownerEmail":"estobart19@harvard.edu","title":"Temp","description":"Maternal care for other rhesus isoimmunization, first trimester, fetus 2","status":"in_progress"});
+                db.projects.insert({"_id":"47","projectId":"47","ownerFirstName":"Adara","ownerLastName":"Adelsberg","ownerEmail":"aadelsberg1a@github.io","title":"Viva","description":"Minor laceration of greater saphenous vein at hip and thigh level, left leg, initial encounter","status":"in_progress"});
+                db.projects.insert({"_id":"48","projectId":"48","ownerFirstName":"Son","ownerLastName":"Bambury","ownerEmail":"sbambury1b@4shared.com","title":"Solarbreeze","description":"Displaced oblique fracture of shaft of unspecified tibia, initial encounter for open fracture type IIIA, IIIB, or IIIC","status":"completed"});
+                db.projects.insert({"_id":"49","projectId":"49","ownerFirstName":"Alonzo","ownerLastName":"Bercevelo","ownerEmail":"abercevelo1c@cnbc.com","title":"Tresom","description":"Burn of second degree of unspecified axilla, subsequent encounter","status":"cancelled"});
+                db.projects.insert({"_id":"50","projectId":"50","ownerFirstName":"Meridith","ownerLastName":"Tolman","ownerEmail":"mtolman1d@newyorker.com","title":"Holdlamis","description":"Chromium deficiency","status":"cancelled"});
+                db.projects.insert({"_id":"51","projectId":"51","ownerFirstName":"Hugh","ownerLastName":"MacCorkell","ownerEmail":"hmaccorkell1e@scientificamerican.com","title":"Kanlam","description":"Hallervorden-Spatz disease","status":"open"});
+                db.projects.insert({"_id":"52","projectId":"52","ownerFirstName":"Bastien","ownerLastName":"Corradengo","ownerEmail":"bcorradengo1f@whitehouse.gov","title":"Bitwolf","description":"Regurgitation and rumination of newborn","status":"completed"});
+                db.projects.insert({"_id":"53","projectId":"53","ownerFirstName":"Edita","ownerLastName":"Boate","ownerEmail":"eboate1g@skyrock.com","title":"Lotstring","description":"Partial traumatic metacarpophalangeal amputation of right ring finger, subsequent encounter","status":"completed"});
+                db.projects.insert({"_id":"54","projectId":"54","ownerFirstName":"Viviana","ownerLastName":"Kornilyev","ownerEmail":"vkornilyev1h@chicagotribune.com","title":"Stronghold","description":"Burn of second degree of unspecified palm, sequela","status":"cancelled"});
+                db.projects.insert({"_id":"55","projectId":"55","ownerFirstName":"Perri","ownerLastName":"Schubert","ownerEmail":"pschubert1i@washington.edu","title":"Tres-Zap","description":"Mycoplasma pneumoniae [M. pneumoniae] as the cause of diseases classified elsewhere","status":"cancelled"});
+                db.projects.insert({"_id":"56","projectId":"56","ownerFirstName":"Judas","ownerLastName":"Kybert","ownerEmail":"jkybert1j@princeton.edu","title":"Veribet","description":"Opioid abuse with unspecified opioid-induced disorder","status":"cancelled"});
+                db.projects.insert({"_id":"57","projectId":"57","ownerFirstName":"Gardy","ownerLastName":"Mangin","ownerEmail":"gmangin1k@yale.edu","title":"Sonair","description":"Nondisplaced fracture of proximal phalanx of right lesser toe(s)","status":"completed"});
+                db.projects.insert({"_id":"58","projectId":"58","ownerFirstName":"Arie","ownerLastName":"Gunston","ownerEmail":"agunston1l@miibeian.gov.cn","title":"Biodex","description":"Kaposi's sarcoma of skin","status":"cancelled"});
+                db.projects.insert({"_id":"59","projectId":"59","ownerFirstName":"Katya","ownerLastName":"O'Hollegan","ownerEmail":"kohollegan1m@weebly.com","title":"Lotstring","description":"Displaced fracture of navicular [scaphoid] of unspecified foot, subsequent encounter for fracture with malunion","status":"in_progress"});
+                db.projects.insert({"_id":"60","projectId":"60","ownerFirstName":"Durant","ownerLastName":"Seviour","ownerEmail":"dseviour1n@qq.com","title":"Redhold","description":"Displaced intertrochanteric fracture of unspecified femur, subsequent encounter for closed fracture with malunion","status":"completed"});
+                db.projects.insert({"_id":"61","projectId":"61","ownerFirstName":"Natalya","ownerLastName":"Bedle","ownerEmail":"nbedle1o@technorati.com","title":"Biodex","description":"Commercial fixed-wing aircraft collision injuring occupant, subsequent encounter","status":"open"});
+                db.projects.insert({"_id":"62","projectId":"62","ownerFirstName":"Corby","ownerLastName":"Bromwich","ownerEmail":"cbromwich1p@google.it","title":"Voyatouch","description":"Open bite of scalp","status":"cancelled"});
+                db.projects.insert({"_id":"63","projectId":"63","ownerFirstName":"Aurilia","ownerLastName":"Jefford","ownerEmail":"ajefford1q@wordpress.com","title":"Stim","description":"Insect bite (nonvenomous), unspecified foot, subsequent encounter","status":"cancelled"});
+                db.projects.insert({"_id":"64","projectId":"64","ownerFirstName":"Fanchon","ownerLastName":"Czaja","ownerEmail":"fczaja1r@yahoo.co.jp","title":"Cardify","description":"Laceration of radial artery at forearm level, right arm, subsequent encounter","status":"in_progress"});
+                db.projects.insert({"_id":"65","projectId":"65","ownerFirstName":"Willie","ownerLastName":"Westbrook","ownerEmail":"wwestbrook1s@xing.com","title":"Biodex","description":"Stable burst fracture of T5-T6 vertebra, subsequent encounter for fracture with routine healing","status":"cancelled"});
+                db.projects.insert({"_id":"66","projectId":"66","ownerFirstName":"Edna","ownerLastName":"Pohl","ownerEmail":"epohl1t@mail.ru","title":"Alpha","description":"Cerebral infarction due to embolism of basilar artery","status":"open"});
+                db.projects.insert({"_id":"67","projectId":"67","ownerFirstName":"Kip","ownerLastName":"Domnick","ownerEmail":"kdomnick1u@gravatar.com","title":"Quo Lux","description":"Myositis ossificans progressiva, left finger(s)","status":"cancelled"});
+                db.projects.insert({"_id":"68","projectId":"68","ownerFirstName":"Bethany","ownerLastName":"Norssister","ownerEmail":"bnorssister1v@weebly.com","title":"Rank","description":"Driver of three-wheeled motor vehicle injured in collision with unspecified motor vehicles in traffic accident, subsequent encounter","status":"completed"});
+                db.projects.insert({"_id":"69","projectId":"69","ownerFirstName":"Ilysa","ownerLastName":"Plevin","ownerEmail":"iplevin1w@cafepress.com","title":"Tampflex","description":"Poisoning by unspecified agents primarily acting on the respiratory system, accidental (unintentional)","status":"open"});
+                db.projects.insert({"_id":"70","projectId":"70","ownerFirstName":"Val","ownerLastName":"Jantel","ownerEmail":"vjantel1x@webmd.com","title":"Holdlamis","description":"Jumping or diving into swimming pool striking bottom causing other injury, initial encounter","status":"completed"});
+                db.projects.insert({"_id":"71","projectId":"71","ownerFirstName":"Rhys","ownerLastName":"Eblein","ownerEmail":"reblein1y@mapy.cz","title":"Quo Lux","description":"Unspecified open wound, left foot, subsequent encounter","status":"open"});
+                db.projects.insert({"_id":"72","projectId":"72","ownerFirstName":"Jephthah","ownerLastName":"Ivain","ownerEmail":"jivain1z@sun.com","title":"Andalax","description":"Nonexudative age-related macular degeneration, left eye, intermediate dry stage","status":"open"});
+                db.projects.insert({"_id":"73","projectId":"73","ownerFirstName":"Ammamaria","ownerLastName":"Shrubsall","ownerEmail":"ashrubsall20@msn.com","title":"Viva","description":"Longitudinal reduction defect of fibula, bilateral","status":"completed"});
+                db.projects.insert({"_id":"74","projectId":"74","ownerFirstName":"Harri","ownerLastName":"Eppson","ownerEmail":"heppson21@ameblo.jp","title":"Konklab","description":"Blister (nonthermal) of penis, sequela","status":"open"});
+                db.projects.insert({"_id":"75","projectId":"75","ownerFirstName":"Nicoli","ownerLastName":"Rudolf","ownerEmail":"nrudolf22@netlog.com","title":"Lotstring","description":"Pressure ulcer of right hip","status":"in_progress"});
+                db.projects.insert({"_id":"76","projectId":"76","ownerFirstName":"Melinde","ownerLastName":"Crossdale","ownerEmail":"mcrossdale23@ucla.edu","title":"Domainer","description":"Displaced fracture of olecranon process without intraarticular extension of unspecified ulna, subsequent encounter for open fracture type IIIA, IIIB, or IIIC with malunion","status":"completed"});
+                db.projects.insert({"_id":"77","projectId":"77","ownerFirstName":"Zacharia","ownerLastName":"Daley","ownerEmail":"zdaley24@phpbb.com","title":"Ronstring","description":"Contact with hot saucepan or skillet","status":"completed"});
+                db.projects.insert({"_id":"78","projectId":"78","ownerFirstName":"Ruthanne","ownerLastName":"Pedrocchi","ownerEmail":"rpedrocchi25@icio.us","title":"Y-Solowarm","description":"Nondisplaced fracture of lesser trochanter of right femur, subsequent encounter for open fracture type IIIA, IIIB, or IIIC with delayed healing","status":"open"});
+                db.projects.insert({"_id":"79","projectId":"79","ownerFirstName":"Lola","ownerLastName":"Carson","ownerEmail":"lcarson26@walmart.com","title":"Hatity","description":"Other physeal fracture of upper end of unspecified femur, subsequent encounter for fracture with malunion","status":"open"});
+                db.projects.insert({"_id":"80","projectId":"80","ownerFirstName":"Anatole","ownerLastName":"Fann","ownerEmail":"afann27@comcast.net","title":"Prodder","description":"Contracture, right hip","status":"completed"});
+                db.projects.insert({"_id":"81","projectId":"81","ownerFirstName":"Reggy","ownerLastName":"Brough","ownerEmail":"rbrough28@pen.io","title":"Opela","description":"Pedestrian on roller-skates injured in collision with two- or three-wheeled motor vehicle, unspecified whether traffic or nontraffic accident, subsequent encounter","status":"completed"});
+                db.projects.insert({"_id":"82","projectId":"82","ownerFirstName":"Sybil","ownerLastName":"Sarah","ownerEmail":"ssarah29@nifty.com","title":"Job","description":"Other acute kidney failure","status":"in_progress"});
+                db.projects.insert({"_id":"83","projectId":"83","ownerFirstName":"Sherill","ownerLastName":"Ouchterlony","ownerEmail":"souchterlony2a@cafepress.com","title":"Daltfresh","description":"Subluxation of interphalangeal joint of left great toe, initial encounter","status":"completed"});
+                db.projects.insert({"_id":"84","projectId":"84","ownerFirstName":"Lura","ownerLastName":"Caldicott","ownerEmail":"lcaldicott2b@livejournal.com","title":"Fintone","description":"Poisoning by other opioids, assault, sequela","status":"cancelled"});
+                db.projects.insert({"_id":"85","projectId":"85","ownerFirstName":"Marshall","ownerLastName":"Conen","ownerEmail":"mconen2c@illinois.edu","title":"Y-Solowarm","description":"Injury of urethra","status":"completed"});
+                db.projects.insert({"_id":"86","projectId":"86","ownerFirstName":"Agretha","ownerLastName":"O'Hickee","ownerEmail":"aohickee2d@macromedia.com","title":"Cardguard","description":"Maternal care for other rhesus isoimmunization, unspecified trimester, fetus 2","status":"completed"});
+                db.projects.insert({"_id":"87","projectId":"87","ownerFirstName":"Cathleen","ownerLastName":"Riddington","ownerEmail":"criddington2e@un.org","title":"Andalax","description":"Displaced trimalleolar fracture of unspecified lower leg, initial encounter for open fracture type IIIA, IIIB, or IIIC","status":"cancelled"});
+                db.projects.insert({"_id":"88","projectId":"88","ownerFirstName":"Edlin","ownerLastName":"Tidbold","ownerEmail":"etidbold2f@mapquest.com","title":"Temp","description":"Intraoperative hemorrhage and hematoma of a nervous system organ or structure complicating a nervous system procedure","status":"in_progress"});
+                db.projects.insert({"_id":"89","projectId":"89","ownerFirstName":"Sidnee","ownerLastName":"McGuiney","ownerEmail":"smcguiney2g@soup.io","title":"Redhold","description":"Other powered aircraft accidents injuring occupant, initial encounter","status":"open"});
+                db.projects.insert({"_id":"90","projectId":"90","ownerFirstName":"Kenyon","ownerLastName":"Hunnam","ownerEmail":"khunnam2h@oakley.com","title":"Keylex","description":"Breakdown (mechanical) of other prosthetic devices, implants and grafts of genital tract, subsequent encounter","status":"in_progress"});
+                db.projects.insert({"_id":"91","projectId":"91","ownerFirstName":"Hendrick","ownerLastName":"Arderne","ownerEmail":"harderne2i@google.nl","title":"Duobam","description":"Injury of other intra-abdominal organs","status":"cancelled"});
+                db.projects.insert({"_id":"92","projectId":"92","ownerFirstName":"Violetta","ownerLastName":"Metzing","ownerEmail":"vmetzing2j@thetimes.co.uk","title":"Ronstring","description":"Poisoning by anthelminthics, assault, subsequent encounter","status":"cancelled"});
+                db.projects.insert({"_id":"93","projectId":"93","ownerFirstName":"Mandy","ownerLastName":"Scudamore","ownerEmail":"mscudamore2k@webeden.co.uk","title":"Duobam","description":"Poisoning by, adverse effect of and underdosing of other antacids and anti-gastric-secretion drugs","status":"cancelled"});
+                db.projects.insert({"_id":"94","projectId":"94","ownerFirstName":"Shani","ownerLastName":"Jendas","ownerEmail":"sjendas2l@geocities.jp","title":"Regrant","description":"Salter-Harris Type I physeal fracture of upper end of unspecified fibula, subsequent encounter for fracture with delayed healing","status":"cancelled"});
+                db.projects.insert({"_id":"95","projectId":"95","ownerFirstName":"Isidore","ownerLastName":"Coot","ownerEmail":"icoot2m@tinyurl.com","title":"Quo Lux","description":"Abrasion of elbow","status":"cancelled"});
+                db.projects.insert({"_id":"96","projectId":"96","ownerFirstName":"Blondelle","ownerLastName":"Kern","ownerEmail":"bkern2n@ox.ac.uk","title":"Trippledex","description":"Other disorders of patella, right knee","status":"in_progress"});
+                db.projects.insert({"_id":"97","projectId":"97","ownerFirstName":"Christabel","ownerLastName":"Van der Daal","ownerEmail":"cvanderdaal2o@dailymotion.com","title":"Greenlam","description":"Poisoning by aminoglycosides, assault, sequela","status":"cancelled"});
+                db.projects.insert({"_id":"98","projectId":"98","ownerFirstName":"Laurene","ownerLastName":"Antonietti","ownerEmail":"lantonietti2p@barnesandnoble.com","title":"Namfix","description":"Displaced fracture of unspecified radial styloid process, initial encounter for open fracture type I or II","status":"open"});
+                db.projects.insert({"_id":"99","projectId":"99","ownerFirstName":"Zachariah","ownerLastName":"Deek","ownerEmail":"zdeek2q@gov.uk","title":"Regrant","description":"Bilateral primary osteoarthritis of knee","status":"in_progress"});
+                db.projects.insert({"_id":"100","projectId":"100","ownerFirstName":"Merridie","ownerLastName":"Cuell","ownerEmail":"mcuell2r@bizjournals.com","title":"Lotlux","description":"Central cord syndrome at C3 level of cervical spinal cord, subsequent encounter","status":"cancelled"});
+          failurePolicy: ignore
+        timeoutSeconds: 600
+      resources: {}
+      type: Recreate
+    template:
+      metadata:
+        labels:
+          app: project-service
+          deploymentconfig: project-mongodb
+      spec:
+        containers:
+        - env:
+          - name: KUBERNETES_NAMESPACE
+            valueFrom:
+              fieldRef:
+                fieldPath: metadata.namespace
+          - name: MONGODB_USER
+            value: ${PROJECT_DB_USERNAME}
+          - name: MONGODB_PASSWORD
+            value: ${PROJECT_DB_PASSWORD}
+          - name: MONGODB_DATABASE
+            value: ${PROJECT_DATABASE}
+          - name: MONGODB_ADMIN_PASSWORD
+            value: ${PROJECT_DB_PASSWORD}
+          image: mongodb
+          imagePullPolicy: IfNotPresent
+          livenessProbe:
+            failureThreshold: 10
+            initialDelaySeconds: 30
+            periodSeconds: 10
+            successThreshold: 1
+            tcpSocket:
+              port: 27017
+            timeoutSeconds: 1
+          name: project-mongodb
+          ports:
+          - containerPort: 27017
+            protocol: TCP
+          readinessProbe:
+            exec:
+              command:
+              - /bin/sh
+              - -i
+              - -c
+              - mongo 127.0.0.1:27017/$MONGODB_DATABASE -u $MONGODB_USER -p $MONGODB_PASSWORD
+                --eval="quit()"
+            failureThreshold: 10
+            initialDelaySeconds: 5
+            periodSeconds: 10
+            successThreshold: 1
+            timeoutSeconds: 1
+          resources:
+            limits:
+              cpu: 500m
+              memory: 1Gi
+            requests:
+              cpu: 100m
+              memory: 256Mi
+          securityContext:
+            capabilities: {}
+            privileged: false
+          terminationMessagePath: /dev/termination-log
+          volumeMounts:
+          - mountPath: /var/lib/mongodb/data
+            name: mongodb-data
+        dnsPolicy: ClusterFirst
+        restartPolicy: Always
+        securityContext: {}
+        terminationGracePeriodSeconds: 30
+        volumes:
+        - name: mongodb-data
+          persistentVolumeClaim:
+            claimName: mongodb-data-pv
+    test: false
+    triggers:
+    - imageChangeParams:
+        automatic: true
+        containerNames:
+        - project-mongodb
+        from:
+          kind: ImageStreamTag
+          name: mongodb:3.2
+          namespace: openshift
+      type: ImageChange
+    - type: ConfigChange
+- apiVersion: v1
+  kind: PersistentVolumeClaim
+  metadata:
+    labels:
+      application: project-mongodb
+    name: mongodb-data-pv
+  spec:
+    accessModes:
+    - ReadWriteOnce
+    resources:
+      requests:
+        storage: 1Gi
+parameters:
+- description: Project Service database user name
+  from: user[a-zA-Z0-9]{3}
+  generate: expression
+  name: PROJECT_DB_USERNAME
+  required: true
+- description: Project Service database user password
+  from: '[a-zA-Z0-9]{8}'
+  generate: expression
+  name: PROJECT_DB_PASSWORD
+  required: true
+- description: Project Service database name
+  name: PROJECT_DATABASE
+  required: true
+  value: projectdb

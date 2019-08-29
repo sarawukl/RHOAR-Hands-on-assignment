@@ -41,11 +41,13 @@ objects:
             containerName: ${APPLICATION_NAME}
             env:
             - name: POSTGRESQL_INIT
-              value: CREATE TABLE freelancer (id bigint NOT NULL,
+              value: ALTER TABLE IF EXISTS freelancer 
+                DROP CONSTRAINT IF EXISTS freelancer_pkey;
+                CREATE TABLE IF NOT EXISTS freelancer (id bigint NOT NULL,
                 email character varying(255),first_name character varying(255),
-                last_name character varying(255),skills character varying(255));
-                ALTER TABLE freelancer OWNER TO freelancer_service;ALTER TABLE ONLY freelancer 
-                ADD CONSTRAINT freelancer_pkey PRIMARY KEY (id);
+                last_name character varying(255),skills character varying(255),
+                constraint freelancer_pkey PRIMARY KEY (id));
+                ALTER TABLE freelancer OWNER TO freelancer_service;
                 insert into freelancer (id, first_name, last_name, email, skills) values (1, 'Jdavie', 'Balshaw', 'jbalshaw0@aol.com', 'knowledge user');
                 insert into freelancer (id, first_name, last_name, email, skills) values (2, 'Trina', 'Hamstead', 'thamstead1@mediafire.com', 'policy');
                 insert into freelancer (id, first_name, last_name, email, skills) values (3, 'Vonni', 'Everton', 'veverton2@behance.net', 'Multi-channelled');
