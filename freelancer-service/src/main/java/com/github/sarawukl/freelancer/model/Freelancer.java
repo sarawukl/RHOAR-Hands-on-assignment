@@ -14,7 +14,7 @@ public class Freelancer {
 
   @Id
   @GeneratedValue(strategy = GenerationType.AUTO)
-  private long id;
+  private long freelancerId;
 
   private String firstName;
   private String lastName;

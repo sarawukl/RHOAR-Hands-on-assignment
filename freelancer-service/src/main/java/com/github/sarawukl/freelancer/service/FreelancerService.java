@@ -14,7 +14,7 @@ public class FreelancerService {
 
 
   public Freelancer getFreelancer(String id) {
-    return freelancerRepository.findById(Long.valueOf(id)).orElse(null);
+    return freelancerRepository.findAllByFreelancerId(Long.valueOf(id)).orElse(null);
   }
 
   public List<Freelancer> getFreelancers() {

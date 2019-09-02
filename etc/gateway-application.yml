@@ -1,0 +1,4 @@
+freelancer-service:
+  url: http://freelancer-service-sarawukl-lab10.apps-375d.generic.opentlc.com
+project-service:
+  url: http://project-service-sarawukl-lab10.apps-375d.generic.opentlc.com

@@ -7,6 +7,7 @@ import com.github.sarawukl.freelancer.model.Freelancer;
 import com.github.sarawukl.freelancer.repository.FreelancerRepository;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
@@ -28,12 +29,14 @@ public class FreelancerServiceTest {
   public void testGetFreelancer() {
     Freelancer returnedFreelancer = new Freelancer();
     returnedFreelancer.setFirstName("TestGetOne");
-    when(freelancerRepository.getOne(Long.valueOf("1234"))).thenReturn(returnedFreelancer);
+    Optional<Freelancer> optionalFreelancer = Optional.of(returnedFreelancer);
+    when(freelancerRepository.findAllByFreelancerId(Long.valueOf("1234")))
+        .thenReturn(optionalFreelancer);
 
     Freelancer getFreelancer = freelancerService.getFreelancer("1234");
 
     assertEquals(returnedFreelancer.getFirstName(), getFreelancer.getFirstName());
-    verify(freelancerRepository, atLeastOnce()).getOne(anyLong());
+    verify(freelancerRepository, atLeastOnce()).findAllByFreelancerId(anyLong());
     verify(freelancerService, times(1)).getFreelancer(anyString());
   }
 

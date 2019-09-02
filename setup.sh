@@ -15,3 +15,9 @@ cd project-service
 mvn clean fabric8:deploy -Popenshift -Dfabric8.namespace=$LAB10_PROJ -DskipTests
 cd ..
 export PROJECT_URL=http://$(oc get route project-service -n $LAB10_PROJ -o template --template='{{.spec.host}}')
+
+oc create configmap gateway-service --from-file=etc/gateway-application.yml -n $LAB10_PROJ
+cd gateway-service
+mvn clean fabric8:deploy -Popenshift -Dfabric8.namespace=$LAB10_PROJ -DskipTests
+cd ..
+export GATEWAY_URL=http://$(oc get route gateway-service -n $LAB10_PROJ -o template --template='{{.spec.host}}')

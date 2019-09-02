@@ -43,31 +43,32 @@ objects:
             - name: POSTGRESQL_INIT
               value: ALTER TABLE IF EXISTS freelancer 
                 DROP CONSTRAINT IF EXISTS freelancer_pkey;
-                CREATE TABLE IF NOT EXISTS freelancer (id bigint NOT NULL,
+                DROP TABLE IF EXISTS freelancer;
+                CREATE TABLE freelancer (freelancer_id bigint NOT NULL,
                 email character varying(255),first_name character varying(255),
                 last_name character varying(255),skills character varying(255),
-                constraint freelancer_pkey PRIMARY KEY (id));
+                constraint freelancer_pkey PRIMARY KEY (freelancer_id));
                 ALTER TABLE freelancer OWNER TO freelancer_service;
-                insert into freelancer (id, first_name, last_name, email, skills) values (1, 'Jdavie', 'Balshaw', 'jbalshaw0@aol.com', 'knowledge user');
-                insert into freelancer (id, first_name, last_name, email, skills) values (2, 'Trina', 'Hamstead', 'thamstead1@mediafire.com', 'policy');
-                insert into freelancer (id, first_name, last_name, email, skills) values (3, 'Vonni', 'Everton', 'veverton2@behance.net', 'Multi-channelled');
-                insert into freelancer (id, first_name, last_name, email, skills) values (4, 'Bettine', 'Maris', 'bmaris3@ebay.co.uk', 'scalable');
-                insert into freelancer (id, first_name, last_name, email, skills) values (5, 'Sutton', 'Danskine', 'sdanskine4@bravesites.com', 'Extended');
-                insert into freelancer (id, first_name, last_name, email, skills) values (6, 'Dud', 'Hug', 'dhug5@opera.com', 'artificial intelligence');
-                insert into freelancer (id, first_name, last_name, email, skills) values (7, 'Agneta', 'Skrine', 'askrine6@hud.gov', 'local area network');
-                insert into freelancer (id, first_name, last_name, email, skills) values (8, 'Hirsch', 'Rouchy', 'hrouchy7@wordpress.org', 'contextually-based');
-                insert into freelancer (id, first_name, last_name, email, skills) values (9, 'Eduino', 'Claffey', 'eclaffey8@blog.com', 'Assimilated');
-                insert into freelancer (id, first_name, last_name, email, skills) values (10, 'Monro', 'Opdenort', 'mopdenort9@aboutads.info', 'open system');
-                insert into freelancer (id, first_name, last_name, email, skills) values (11, 'Gabriellia', 'Tickner', 'gticknera@skype.com', 'multi-state');
-                insert into freelancer (id, first_name, last_name, email, skills) values (12, 'Janeczka', 'Finlayson', 'jfinlaysonb@smugmug.com', 'Cross-platform');
-                insert into freelancer (id, first_name, last_name, email, skills) values (13, 'Karry', 'Hebron', 'khebronc@freewebs.com', 'software');
-                insert into freelancer (id, first_name, last_name, email, skills) values (14, 'Rhiamon', 'Cerro', 'rcerrod@state.tx.us', 'standardization');
-                insert into freelancer (id, first_name, last_name, email, skills) values (15, 'Emmalynn', 'Stebbings', 'estebbingse@goodreads.com', 'multi-tasking');
-                insert into freelancer (id, first_name, last_name, email, skills) values (16, 'Way', 'Mander', 'wmanderf@scientificamerican.com', 'project');
-                insert into freelancer (id, first_name, last_name, email, skills) values (17, 'Christina', 'Newnham', 'cnewnhamg@fotki.com', 'analyzing');
-                insert into freelancer (id, first_name, last_name, email, skills) values (18, 'Zackariah', 'Ashforth', 'zashforthh@gnu.org', 'Persistent');
-                insert into freelancer (id, first_name, last_name, email, skills) values (19, 'Amelie', 'Salway', 'asalwayi@hud.gov', 'Mandatory');
-                insert into freelancer (id, first_name, last_name, email, skills) values (20, 'Lilah', 'Tanguy', 'ltanguyj@scientificamerican.com', 'user-facing');    
+                insert into freelancer (freelancer_id, first_name, last_name, email, skills) values (1, 'Jdavie', 'Balshaw', 'jbalshaw0@aol.com', 'knowledge user');
+                insert into freelancer (freelancer_id, first_name, last_name, email, skills) values (2, 'Trina', 'Hamstead', 'thamstead1@mediafire.com', 'policy');
+                insert into freelancer (freelancer_id, first_name, last_name, email, skills) values (3, 'Vonni', 'Everton', 'veverton2@behance.net', 'Multi-channelled');
+                insert into freelancer (freelancer_id, first_name, last_name, email, skills) values (4, 'Bettine', 'Maris', 'bmaris3@ebay.co.uk', 'scalable');
+                insert into freelancer (freelancer_id, first_name, last_name, email, skills) values (5, 'Sutton', 'Danskine', 'sdanskine4@bravesites.com', 'Extended');
+                insert into freelancer (freelancer_id, first_name, last_name, email, skills) values (6, 'Dud', 'Hug', 'dhug5@opera.com', 'artificial intelligence');
+                insert into freelancer (freelancer_id, first_name, last_name, email, skills) values (7, 'Agneta', 'Skrine', 'askrine6@hud.gov', 'local area network');
+                insert into freelancer (freelancer_id, first_name, last_name, email, skills) values (8, 'Hirsch', 'Rouchy', 'hrouchy7@wordpress.org', 'contextually-based');
+                insert into freelancer (freelancer_id, first_name, last_name, email, skills) values (9, 'Eduino', 'Claffey', 'eclaffey8@blog.com', 'Assimilated');
+                insert into freelancer (freelancer_id, first_name, last_name, email, skills) values (10, 'Monro', 'Opdenort', 'mopdenort9@aboutads.info', 'open system');
+                insert into freelancer (freelancer_id, first_name, last_name, email, skills) values (11, 'Gabriellia', 'Tickner', 'gticknera@skype.com', 'multi-state');
+                insert into freelancer (freelancer_id, first_name, last_name, email, skills) values (12, 'Janeczka', 'Finlayson', 'jfinlaysonb@smugmug.com', 'Cross-platform');
+                insert into freelancer (freelancer_id, first_name, last_name, email, skills) values (13, 'Karry', 'Hebron', 'khebronc@freewebs.com', 'software');
+                insert into freelancer (freelancer_id, first_name, last_name, email, skills) values (14, 'Rhiamon', 'Cerro', 'rcerrod@state.tx.us', 'standardization');
+                insert into freelancer (freelancer_id, first_name, last_name, email, skills) values (15, 'Emmalynn', 'Stebbings', 'estebbingse@goodreads.com', 'multi-tasking');
+                insert into freelancer (freelancer_id, first_name, last_name, email, skills) values (16, 'Way', 'Mander', 'wmanderf@scientificamerican.com', 'project');
+                insert into freelancer (freelancer_id, first_name, last_name, email, skills) values (17, 'Christina', 'Newnham', 'cnewnhamg@fotki.com', 'analyzing');
+                insert into freelancer (freelancer_id, first_name, last_name, email, skills) values (18, 'Zackariah', 'Ashforth', 'zashforthh@gnu.org', 'Persistent');
+                insert into freelancer (freelancer_id, first_name, last_name, email, skills) values (19, 'Amelie', 'Salway', 'asalwayi@hud.gov', 'Mandatory');
+                insert into freelancer (freelancer_id, first_name, last_name, email, skills) values (20, 'Lilah', 'Tanguy', 'ltanguyj@scientificamerican.com', 'user-facing');    
           failurePolicy: ignore
         timeoutSeconds: 600
       resources: {}
