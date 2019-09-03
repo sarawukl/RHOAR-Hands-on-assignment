@@ -1,7 +1,6 @@
 package com.github.sarawukl.gateway.model;
 
 import java.io.Serializable;
-import javax.json.JsonObject;
 import lombok.Data;
 
 @Data

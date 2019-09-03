@@ -5,6 +5,7 @@ import java.util.List;
 import javax.annotation.PostConstruct;
 import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
+import javax.ws.rs.NotFoundException;
 import javax.ws.rs.ServiceUnavailableException;
 import javax.ws.rs.client.ClientBuilder;
 import javax.ws.rs.client.WebTarget;
@@ -46,6 +47,8 @@ public class ProjectService {
     Response response = client.path(id).request(MediaType.APPLICATION_JSON).get(Response.class);
     if (response.getStatus() == 200) {
       project = response.readEntity(Project.class);
+    } else if (response.getStatus() == 404) {
+      throw new NotFoundException();
     } else {
       throw new ServiceUnavailableException();
     }

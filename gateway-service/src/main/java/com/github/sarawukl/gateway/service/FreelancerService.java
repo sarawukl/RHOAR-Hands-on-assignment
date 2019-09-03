@@ -6,6 +6,7 @@ import java.util.List;
 import javax.annotation.PostConstruct;
 import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
+import javax.ws.rs.NotFoundException;
 import javax.ws.rs.ServiceUnavailableException;
 import javax.ws.rs.client.ClientBuilder;
 import javax.ws.rs.client.WebTarget;
@@ -31,7 +32,7 @@ public class FreelancerService {
   }
 
   public List<Freelancer> getFreelancers() {
-    List<Freelancer> freelancers = new ArrayList<>();
+    List<Freelancer> freelancers;
     Response response = client.request(MediaType.APPLICATION_JSON).get(Response.class);
     if (response.getStatus() == 200) {
       freelancers = response.readEntity(new GenericType<List<Freelancer>>() {
@@ -46,7 +47,11 @@ public class FreelancerService {
     Freelancer freelancer;
     Response response = client.path(id).request(MediaType.APPLICATION_JSON).get(Response.class);
     if (response.getStatus() == 200) {
-      freelancer = response.readEntity(Freelancer.class);
+      if (response.hasEntity()) {
+        freelancer = response.readEntity(Freelancer.class);
+      } else {
+        throw new NotFoundException();
+      }
     } else {
       throw new ServiceUnavailableException();
     }
