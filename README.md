@@ -1,14 +1,27 @@
 
+
 ## Freelance4j
 
 **Assignment Lab:** Microservices using Red Hat OpenShift Application Runtimes.
 
-![](/diagram.jpg)
-
-
 **Table of Contents**
 
 - [Freelance4j](#freelance4j)
+  * [Github Repository url](#github-repository-url)
+  * [Sample curl requests](#sample-curl-requests)
+    + [API Gateway endpoints](#api-gateway-endpoints)
+      - [GET all freelancers](#get-all-freelancers)
+      - [GET freelancer by id](#get-freelancer-by-id)
+      - [GET all projects](#get-all-projects)
+      - [GET project by id](#get-project-by-id)
+      - [GET project by status](#get-project-by-status)
+    + [Freelancer Service Endpoints](#freelancer-service-endpoints)
+      - [GET all freelancers](#get-all-freelancers-1)
+      - [GET freelancer by id](#get-freelancer-by-id-1)
+    + [Project Service Endpoints](#project-service-endpoints)
+      - [GET all projects](#get-all-projects-1)
+      - [GET project by id](#get-project-by-id-1)
+      - [GET project by status](#get-project-by-status-1)
   * [Prerequisites](#prerequisites)
   * [Deploy to OpenShift](#deploy-to-openshift)
     + [Login and Create project](#login-and-create-project)
@@ -27,6 +40,54 @@
       - [2. Build & Deploy Vert.x application](#2-build---deploy-vertx-application)
       - [3.Test API Gateway service endpoint](#3test-api-gateway-service-endpoint)
   * [Clean up resources](#clean-up-resources)
+
+### Github Repository url
+#### https://github.com/sarawukl/RHOAR-Hands-on-assignment.git
+
+### Sample curl requests
+#### API Gateway endpoints
+##### GET all freelancers
+```
+curl -X GET "http://gateway-service-sarawukl-lab10.apps-375d.generic.opentlc.com/gateway/freelancers"
+```
+##### GET freelancer by id
+```
+curl -X GET "http://gateway-service-sarawukl-lab10.apps-375d.generic.opentlc.com/gateway/freelancers/1"
+```
+##### GET all projects
+```
+curl -X GET "http://gateway-service-sarawukl-lab10.apps-375d.generic.opentlc.com/gateway/projects"
+```
+##### GET project by id
+```
+curl -X GET "http://gateway-service-sarawukl-lab10.apps-375d.generic.opentlc.com/gateway/projects/1"
+```
+##### GET project by status
+```
+curl -X GET "http://gateway-service-sarawukl-lab10.apps-375d.generic.opentlc.com/gateway/projects/status/in_progress"
+```
+#### Freelancer Service Endpoints
+##### GET all freelancers
+```
+curl -X GET "http://freelancer-service-sarawukl-lab10.apps-375d.generic.opentlc.com/freelancers"
+```
+##### GET freelancer by id
+```
+curl -X GET "http://freelancer-service-sarawukl-lab10.apps-375d.generic.opentlc.com/freelancers/1"
+```
+#### Project Service Endpoints
+##### GET all projects
+```
+curl -X GET "http://project-service-sarawukl-lab10.apps-375d.generic.opentlc.com/projects"
+```
+##### GET project by id
+```
+curl -X GET "http://project-service-sarawukl-lab10.apps-375d.generic.opentlc.com/projects/1"
+```
+##### GET project by status
+```
+curl -X GET "http://project-service-sarawukl-lab10.apps-375d.generic.opentlc.com/projects/status/in_progress"
+```
 
 ### Prerequisites
 - JDK 8.x
