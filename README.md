@@ -4,6 +4,8 @@
 
 **Assignment Lab:** Microservices using Red Hat OpenShift Application Runtimes.
 
+![](/diagram.jpg)
+
 **Table of Contents**
 
 - [Freelance4j](#freelance4j)
