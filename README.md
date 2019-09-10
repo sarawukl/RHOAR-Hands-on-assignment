@@ -161,7 +161,7 @@ echo $'freelancer-service:\n  url: '"$FREELANCER_URL"$'\nproject-service:\n  url
 oc create configmap gateway-service --from-file=etc/gateway-application.yml -n $LAB10_PROJ
 oc label configmap gateway-service app=gateway-service -n $LAB10_PROJ
 ```
-##### 2. Build & Deploy Vert.x application
+##### 2. Build & Deploy Thorntail application
 ```
 cd gateway-service
 mvn clean fabric8:deploy -Popenshift -Dfabric8.namespace=$LAB10_PROJ -DskipTests
